@@ -10,6 +10,7 @@ using TechTalk.SpecFlow;
 using TestFramework.Config;
 using TestFramework.Utilities.Extensions;
 using TestFramework.Utilities.Helper;
+[assembly:Parallelizable(ParallelScope.Self)]
 
 namespace TestProject.Hooks
 {
@@ -30,9 +31,6 @@ namespace TestProject.Hooks
             var projectPath = new Uri(actualPath).LocalPath;
             Directory.CreateDirectory(projectPath.ToString() + "Reports");
             var reportPath = projectPath + "Reports\\ExtentReport.html";
-
-            Directory.CreateDirectory(projectPath.ToString() + "Log");
-            filePath = projectPath + "Log\\Logger.log";
 
             var htmlReporter = new ExtentHtmlReporter(reportPath);
             htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
@@ -85,6 +83,7 @@ namespace TestProject.Hooks
         [AfterScenario]
         public void AfterScenario()
         {
+            WebDriverBase.CloseBrowser();
             _extent.Flush();
         }
 
@@ -116,7 +115,6 @@ namespace TestProject.Hooks
             }
 
             _test.Log(logstatus, "Test ended with " + logstatus + message + stacktrace);
-            WebDriverBase.CloseBrowser();
             _extent.Flush();
         }
     }
