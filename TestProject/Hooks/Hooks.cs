@@ -10,7 +10,7 @@ using TechTalk.SpecFlow;
 using TestFramework.Config;
 using TestFramework.Utilities.Extensions;
 using TestFramework.Utilities.Helper;
-[assembly:Parallelizable(ParallelScope.Self)]
+//[assembly:Parallelizable(ParallelScope.Fixtures)]
 
 namespace TestProject.Hooks
 {
@@ -43,9 +43,12 @@ namespace TestProject.Hooks
         public void InItWebDriver()
         {
             WebDriverBase.OpenBrowser();
+            DriverContext.Driver.Navigate().GoToUrl(Settings.URL);
+            DriverContext.Driver.Manage().Window.Maximize();
             _test = _extent.CreateTest(TestContext.CurrentContext.Test.Name);
 
         }
+        
 
         [AfterStep]
         public void InsertReportingSteps(ScenarioContext sc)

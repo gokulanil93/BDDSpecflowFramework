@@ -15,8 +15,8 @@ namespace TestFramework.Utilities.Extensions
         public static void OpenBrowser()
         {
             BrowserSetUp.ConfigureBrowser();
-            DriverContext.Driver.Navigate().GoToUrl(Settings.URL);
-            DriverContext.Driver.Manage().Window.Maximize();
+            //DriverContext.Driver.Navigate().GoToUrl(Settings.URL);
+            //DriverContext.Driver.Manage().Window.Maximize();
         }
 
         /// <summary>
