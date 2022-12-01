@@ -78,7 +78,6 @@ namespace TestProject.Feature
         [NUnit.Framework.CategoryAttribute("smokeTest")]
         [NUnit.Framework.TestCaseAttribute("3", "AAZING LONDON", "400", "2000", null)]
         [NUnit.Framework.TestCaseAttribute("2", "AAZING LONDON", "400", "2000", null)]
-        [NUnit.Framework.TestCaseAttribute("4", "AAZING LONDON", "400", "2000", null)]
         public void VerifyTheFirstProductNameAndValueFallsInRange(string productToBeSelected, string productName, string min, string max, string[] exampleTags)
         {
             string[] @__tags = new string[] {

@@ -11,5 +11,4 @@ Scenario Outline: verify the first product name and value falls in range
         | productToBeSelected | productName   | min | max  |
         | 3                   | AAZING LONDON | 400 | 2000 |
         | 2                   | AAZING LONDON | 400 | 2000 |
-		| 4                   | AAZING LONDON | 400 | 2000 |
     
