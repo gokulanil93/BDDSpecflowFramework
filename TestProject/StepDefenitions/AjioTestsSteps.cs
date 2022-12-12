@@ -8,6 +8,13 @@ namespace TestProject.StepDefenitions
     [Binding]
     public class AjioTestsSteps
     {
+        private readonly ScenarioContext _scenarioContext;
+
+        public AjioTestsSteps(ScenarioContext scenarioContext)
+        {
+            _scenarioContext = scenarioContext;
+        }
+
         [Given(@"user navigates to website and select clothing section")]
         public void GivenTheFirstNumber()
         {
@@ -65,6 +72,38 @@ namespace TestProject.StepDefenitions
             Assert.Multiple(() =>
             {
                 Assert.AreEqual(productName, productDetails.Item1, "Product is different");
+                Assert.True(flag, "Price not in Range");
+                Console.WriteLine("Test Passed");
+            });
+        }
+
+
+
+
+
+
+        [Then(@"user selects the ""(.*)"" product")]
+        public void ThenUserSelectsTheProduct(int count)
+        {
+            AjioClothingPage ajioClothingPageObj = new AjioClothingPage();
+            var productDetails = ajioClothingPageObj.SelectAnyProductReturnDetails(count);
+
+            _scenarioContext["name"] = productDetails.Item1;
+            _scenarioContext["price"] = productDetails.Item2;
+
+        }
+
+        [Then(@"verify the product name is ""(.*)"" and price ranges between ""(.*)"" and ""(.*)""")]
+        public void ThenVerifyTheProductNameIsAndPriceRangesBetweenAnd(string productName, double min, double max)
+        {
+            string nameOfProduct = _scenarioContext.Get<string>("name");
+            float priceOfProduct = _scenarioContext.Get<int>("price");
+            AjioClothingPage ajioClothingPageObj = new AjioClothingPage();
+            bool flag = ajioClothingPageObj.VerifyPriceRange(priceOfProduct, min, max);
+
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(productName, nameOfProduct, "Product is different");
                 Assert.True(flag, "Price not in Range");
                 Console.WriteLine("Test Passed");
             });
